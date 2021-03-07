@@ -1,0 +1,35 @@
+from collections import Counter
+height = int(input())
+width = int(input())
+
+numActions = int(input())
+
+actions = []
+
+for i in range(numActions):
+    line = input().split(" ")
+    line = line[0]+line[1]
+    actions.append(line)
+
+actions = dict(Counter(actions))
+newActions = list(actions.keys())
+
+numR = 0
+numC = 0
+numGold = 0
+
+#Because the orders in which row/column flips are performed do not matter, and an even number of flips on the same row/column is the same as if it were never flipped
+#We can minimize the needed number of flips to be performed to the number of rows + columns
+for action in newActions:
+    if actions[action]%2==0:
+        continue
+    if action[0] == "R":
+        numR += 1
+        #if n columns are already flipped, flipping a row will make all but n cells become gold, while the other n cells become black
+        #Subtract numC*2 to compensate for the n cells becoming black + the n cells not becoming gold
+        numGold += (width - numC*2)
+    else:
+        numC +=1
+        numGold += (height - numR*2)
+
+print(numGold)
