@@ -1,4 +1,4 @@
-# Daily Commute
+# Daily Commute 
 from collections import defaultdict as dd
 from sys import stdin
 input = stdin.readline
